@@ -1,5 +1,7 @@
 <?php $this->load->view("partial/header"); ?>
 
+<script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+
 <?php
 if(isset($error))
 {
@@ -83,7 +85,7 @@ if(isset($success))
 		<div class="panel-body form-group">
 			<ul>
 				<li class="pull-left first_li">
-					<label for="item" class='control-label'><?php echo $this->lang->line('sales_find_or_scan_item_or_receipt'); ?></label>
+					<label for="item" class='control-label'><?php echo $this->lang->line('sales_find_or_scan_item_or_receipt'); ?>(F2)</label>
 				</li>
 				<li class="pull-left">
 					<?php echo form_input(array('name'=>'item', 'id'=>'item', 'class'=>'form-control input-sm', 'size'=>'50', 'tabindex'=>++$tabindex)); ?>
@@ -109,8 +111,8 @@ if(isset($success))
 				<th style="width: 15%;"><?php echo $this->lang->line('sales_item_number'); ?></th>
 				<th style="width: 30%;"><?php echo $this->lang->line('sales_item_name'); ?></th>
 				<th style="width: 10%;"><?php echo $this->lang->line('sales_price'); ?></th>
-				<th style="width: 10%;"><?php echo $this->lang->line('sales_quantity'); ?></th>
-				<th style="width: 15%;"><?php echo $this->lang->line('sales_discount'); ?></th>
+				<th style="width: 10%;"><?php echo $this->lang->line('sales_quantity'); ?>(F12)</th>
+				<th style="width: 15%;"><?php echo $this->lang->line('sales_discount'); ?>(F4)</th>
 				<th style="width: 10%;"><?php echo $this->lang->line('sales_total'); ?></th>
 				<th style="width: 5%;"><?php echo $this->lang->line('sales_update'); ?></th>
 			</tr>
@@ -130,8 +132,10 @@ if(isset($success))
 			}
 			else
 			{
+			    $i = 0;
 				foreach(array_reverse($cart, TRUE) as $line=>$item)
 				{
+				++$i;
 			?>
 
 					<?php echo form_open($controller_name."/edit_item/$line", array('class'=>'form-horizontal', 'id'=>'cart_'.$line)); ?>
@@ -190,14 +194,14 @@ if(isset($success))
 								}
 								else
 								{
-									echo form_input(array('name'=>'quantity', 'class'=>'form-control input-sm', 'value'=>to_quantity_decimals($item['quantity']), 'tabindex'=>++$tabindex, 'onClick'=>'this.select();'));
+									echo form_input(array('name'=>'quantity', 'class'=>'form-control input-sm', 'value'=>to_quantity_decimals($item['quantity']), 'tabindex'=>++$tabindex, 'onClick'=>'this.select();', 'id'=>'quantity_'.$i));
 								}
 								?>
 							</td>
 
 							<td>
 								<div class="input-group">
-									<?php echo form_input(array('name'=>'discount', 'class'=>'form-control input-sm', 'value'=>$item['discount'], 'tabindex'=>++$tabindex, 'onClick'=>'this.select();')); ?>
+									<?php echo form_input(array('name'=>'discount', 'class'=>'form-control input-sm', 'value'=>$item['discount'], 'tabindex'=>++$tabindex, 'onClick'=>'this.select();','id'=>'discount_'.$i)); ?>
 									<span class="input-group-btn">
 										<?php echo form_checkbox(array('id'=>'discount_toggle', 'name'=>'discount_toggle', 'value'=>1, 'data-toggle'=>"toggle",'data-size'=>'small', 'data-onstyle'=>'success', 'data-on'=>'<b>'.$this->config->item('currency_symbol').'</b>', 'data-off'=>'<b>%</b>', 'data-line'=>$line, 'checked'=>$item['discount_type'])); ?>
 									</span>
@@ -431,7 +435,7 @@ if(isset($success))
 
 			<tr>
 				<th style='width: 55%;'><?php echo $this->lang->line('sales_total'); ?></th>
-				<th style="width: 45%; text-align: right;"><span id="sale_total"><?php echo to_currency($total); ?></span></th>
+				<th style="width: 45%; text-align: right; color:Blue; font-size: 30px;"><span id="sale_total"><?php echo to_currency($total); ?></span></th>
 			</tr>
 		</table>
 
@@ -447,7 +451,7 @@ if(isset($success))
 				</tr>
 				<tr>
 					<th style="width: 55%;"><?php echo $this->lang->line('sales_amount_due');?></th>
-					<th style="width: 45%; text-align: right;"><span id="sale_amount_due"><?php echo to_currency($amount_due); ?></span></th>
+					<th style="width: 45%; text-align: right; color:red; font-size: 20px;"><span id="sale_amount_due"><?php echo to_currency($amount_due); ?></span></th>
 				</tr>
 			</table>
 
@@ -466,7 +470,7 @@ if(isset($success))
 								</td>
 							</tr>
 							<tr>
-								<td><span id="amount_tendered_label"><?php echo $this->lang->line('sales_amount_tendered'); ?></span></td>
+								<td><span id="amount_tendered_label"><?php echo $this->lang->line('sales_amount_tendered'); ?>(F8)</span></td>
 								<td>
 									<?php echo form_input(array('name'=>'amount_tendered', 'id'=>'amount_tendered', 'class'=>'form-control input-sm disabled', 'disabled'=>'disabled', 'value'=>'0', 'size'=>'5', 'tabindex'=>++$tabindex, 'onClick'=>'this.select();')); ?>
 								</td>
@@ -506,7 +510,7 @@ if(isset($success))
 								</td>
 							</tr>
 							<tr>
-								<td><span id="amount_tendered_label"><?php echo $this->lang->line('sales_amount_tendered'); ?></span></td>
+								<td><span id="amount_tendered_label"><?php echo $this->lang->line('sales_amount_tendered'); ?>(F8)</span></td>
 								<td>
 									<?php echo form_input(array('name'=>'amount_tendered', 'id'=>'amount_tendered', 'class'=>'form-control input-sm non-giftcard-input', 'value'=>to_currency_no_money($amount_due), 'size'=>'5', 'tabindex'=>++$tabindex, 'onClick'=>'this.select();')); ?>
 									<?php echo form_input(array('name'=>'amount_tendered', 'id'=>'amount_tendered', 'class'=>'form-control input-sm giftcard-input', 'disabled' => true, 'value'=>to_currency_no_money($amount_due), 'size'=>'5', 'tabindex'=>++$tabindex)); ?>
@@ -920,6 +924,59 @@ $(document).ready(function()
 		$('#cart_'+ $(this).attr('data-line')).append($(input));
 		$('#cart_'+ $(this).attr('data-line')).submit();
 	});
+
+    //By default hotkeys are not enabled for INPUT SELECT TEXTAREA elements. Hotkeys.filter to return to the true shortcut keys set to play a role, false shortcut keys set up failure.
+    hotkeys.filter = function(event){
+      return true;
+    }
+
+    //Search
+    hotkeys('f2', function(event, handler){
+      // Prevent the default refresh event under WINDOWS system
+      event.preventDefault();
+      $("#item").val('');
+      $("#item").focus();
+    });
+
+    //Discount
+    hotkeys('f4', function(event, handler){
+      // Prevent the default refresh event under WINDOWS system
+      event.preventDefault();
+      $("#discount_1").focus().select();
+    });
+
+    //Amount received
+    hotkeys('f8', function(event, handler){
+      // Prevent the default refresh event under WINDOWS system
+      event.preventDefault();
+      $("#amount_tendered").focus().select();
+    });
+
+    //Add payment
+    hotkeys('f10', function(event, handler){
+      // Prevent the default refresh event under WINDOWS system
+      event.preventDefault();
+      if($('#add_payment_button').length){
+        $('#add_payment_form').submit();
+      }
+    });
+
+    //Save or Complete
+    hotkeys('f11', function(event, handler){
+      // Prevent the default refresh event under WINDOWS system
+      event.preventDefault();
+      if($('#finish_sale_button').length){
+          $('#buttons_form').attr('action', '<?php echo site_url($controller_name."/complete"); ?>');
+          $('#buttons_form').submit();
+      }
+    });
+
+    //Quantity
+    hotkeys('f12', function(event, handler){
+      // Prevent the default refresh event under WINDOWS system
+      event.preventDefault();
+      $("#quantity_1").focus().select();
+    });
 });
 
 function check_payment_type()
@@ -940,7 +997,7 @@ function check_payment_type()
 	{
 		$("#sale_total").html("<?php echo to_currency($cash_total); ?>");
 		$("#sale_amount_due").html("<?php echo to_currency($cash_amount_due); ?>");
-		$("#amount_tendered_label").html("<?php echo $this->lang->line('sales_amount_tendered'); ?>");
+		$("#amount_tendered_label").html("<?php echo $this->lang->line('sales_amount_tendered'); ?>(F8)");
 		$("#amount_tendered:enabled").val("<?php echo to_currency_no_money($cash_amount_due); ?>");
 		$(".giftcard-input").attr('disabled', true);
 		$(".non-giftcard-input").attr('disabled', false);
@@ -949,7 +1006,7 @@ function check_payment_type()
 	{
 		$("#sale_total").html("<?php echo to_currency($non_cash_total); ?>");
 		$("#sale_amount_due").html("<?php echo to_currency($non_cash_amount_due); ?>");
-		$("#amount_tendered_label").html("<?php echo $this->lang->line('sales_amount_tendered'); ?>");
+		$("#amount_tendered_label").html("<?php echo $this->lang->line('sales_amount_tendered'); ?>(F8)");
 		$("#amount_tendered:enabled").val("<?php echo to_currency_no_money($non_cash_amount_due); ?>");
 		$(".giftcard-input").attr('disabled', true);
 		$(".non-giftcard-input").attr('disabled', false);
