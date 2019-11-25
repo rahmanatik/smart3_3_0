@@ -162,9 +162,9 @@
 			<td style="text-align:right;<?php echo $border? 'border-top: 2px solid black;' :''; ?>"><?php echo to_currency($total); ?></td>
 		</tr>
 
-		<tr>
+		<!--<tr>
 			<td colspan="4">&nbsp;</td>
-		</tr>
+		</tr>-->
 
 		<?php
 		$only_sale_check = FALSE;
@@ -183,9 +183,9 @@
 		}
 		?>
 
-		<tr>
+		<!--<tr>
 			<td colspan="4">&nbsp;</td>
-		</tr>
+		</tr>-->
 
 		<?php
 		if(isset($cur_giftcard_value) && $show_giftcard_remainder)
@@ -204,12 +204,12 @@
 		</tr>
 	</table>
 
-	<div id="sale_return_policy">
+	<!--<div id="sale_return_policy">
 		<?php echo nl2br($this->config->item('return_policy')); ?>
 	</div>
 
 	<div id="barcode">
 		<img src='data:image/png;base64,<?php echo $barcode; ?>' /><br>
 		<?php echo $sale_id; ?>
-	</div>
+	</div>-->
 </div>
