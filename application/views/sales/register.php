@@ -1,6 +1,6 @@
 <?php $this->load->view("partial/header"); ?>
 
-<script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+<script src="bower_components/jquery/dist/hotkeys.min.js"></script>
 
 <?php
 if(isset($error))
