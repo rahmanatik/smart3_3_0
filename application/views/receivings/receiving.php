@@ -134,7 +134,7 @@ if (isset($success))
 					<?php echo form_open($controller_name."/edit_item/$line", array('class'=>'form-horizontal', 'id'=>'cart_'.$line)); ?>
 						<tr>
 							<td><?php echo anchor($controller_name."/delete_item/$line", '<span class="glyphicon glyphicon-trash"></span>');?></td>
-							<td><a href="http://localhost/smart3_3_0/public/items/view/<?php echo $item['item_id']; ?>" class="modal-dlg" data-btn-submit="Submit" title="Update Item"><?php echo $item['item_number']; ?></a></td>
+							<td><a href="http://localhost/sultanmart/public/items/view/<?php echo $item['item_id']; ?>" class="modal-dlg" data-btn-submit="Submit" title="Update Item"><?php echo $item['item_number']; ?></a></td>
 							<td style="align:center;">
 								<?php echo $item['name'] . ' '. implode(' ', array($item['attribute_values'], $item['attribute_dtvalues'])); ?>
 								<br /> <?php echo '[' . to_currency_no_money($item['item_cost_price']) . ' : ' .  to_currency_no_money($item['item_unit_price']) . ' : ' . to_quantity_decimals($item['in_stock']) . ' in ' . $item['stock_name'] . ']'; ?>
