@@ -240,6 +240,8 @@ class Receiving_lib
 				'stock_name' => $this->CI->Stock_location->get_location_name($item_location),
 				'line' => $insertkey,
 				'name' => $item_info->name,
+				'item_cost_price' => $item_info->cost_price,
+				'item_unit_price' => $item_info->unit_price,
 				'description' => $description != NULL ? $description: $item_info->description,
 				'serialnumber' => $serialnumber != NULL ? $serialnumber: '',
 				'attribute_values' => $attribute_links->attribute_values,
