@@ -208,7 +208,7 @@ if(isset($success))
 								</div> 
 							</td>
 
-							<td>
+							<td <?php if(to_currency($item['cost_price'] * $item['quantity']) >= to_currency($item['discounted_total'])) echo "style='color:#ff0000'" ?>>
 								<?php
 								if($item['item_type'] == ITEM_AMOUNT_ENTRY)
 								{
