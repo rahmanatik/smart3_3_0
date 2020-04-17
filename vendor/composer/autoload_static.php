@@ -13,6 +13,10 @@ class ComposerStaticInit62ba993e64c8e288942cbe2c7764f5c6
     );
 
     public static $prefixLengthsPsr4 = array (
+        'c' => 
+        array (
+            'chriskacerguis\\RestServer\\' => 26,
+        ),
         'T' => 
         array (
             'Tamtamchik\\NameCase\\' => 20,
@@ -29,6 +33,10 @@ class ComposerStaticInit62ba993e64c8e288942cbe2c7764f5c6
     );
 
     public static $prefixDirsPsr4 = array (
+        'chriskacerguis\\RestServer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/chriskacerguis/codeigniter-restserver/src',
+        ),
         'Tamtamchik\\NameCase\\' => 
         array (
             0 => __DIR__ . '/..' . '/tamtamchik/namecase/src',

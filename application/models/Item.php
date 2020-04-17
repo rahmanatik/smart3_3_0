@@ -314,6 +314,36 @@ class Item extends CI_Model
 		}
 	}
 
+    /*
+	Gets information about a particular item by item_number
+	*/
+	public function get_item_by_item_number($item_number, $stock_location_id = 1, $include_deleted = TRUE)
+	{
+		$this->db->from('items');
+		
+		// For Quantity
+		if($stock_location_id > -1)
+		{
+			$this->db->join('item_quantities', 'item_quantities.item_id = items.item_id');
+			$this->db->where('location_id', $stock_location_id);
+		}
+		$this->db->where('items.item_number', $item_number);
+
+		if(!$include_deleted)
+		{
+			$this->db->where('items.deleted', 0);
+		}
+
+		$query = $this->db->get();
+
+		if($query->num_rows() == 1)
+		{
+			return $query->row();
+		}
+
+		return '';
+	}
+
 	/*
 	Gets information about a particular item by item id or number
 	*/
