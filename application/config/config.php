@@ -7,7 +7,7 @@
 | This is the version of Open Source Point of Sale you're running 
 | 
 | 
-*/ 
+*/
 $config['application_version'] = '3.3.0';
 
 /* 
@@ -18,9 +18,9 @@ $config['application_version'] = '3.3.0';
 | This is the commit hash for the version you are currently using 
 | 
 | 
-*/ 
+*/
 $config['commit_sha1'] = '0b9a76';
- 
+
 /* 
 |-------------------------------------------------------------------------- 
 | Internal to OSPOS XSS Clean 
@@ -30,7 +30,7 @@ $config['commit_sha1'] = '0b9a76';
 | By default it's enabled as it's assumed the installation has Internet access and needs to be protected, 
 | however intranet only installations may not need this so they can set FALSE to improve performance 
 | 
-*/ 
+*/
 $config['ospos_xss_clean'] = TRUE;
 
 /*
@@ -257,7 +257,8 @@ $config['directory_trigger'] = 'd';
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 0;
+//TODO:: change me to turn on log
+$config['log_threshold'] = 1;
 
 /*
 |--------------------------------------------------------------------------

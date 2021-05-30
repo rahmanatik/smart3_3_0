@@ -138,13 +138,14 @@ class Item extends CI_Model
 			$this->db->select('MAX(suppliers.account_number) AS account_number');
 			$this->db->select('MAX(suppliers.deleted) AS deleted');
 
-			$this->db->select('MAX(inventory.trans_id) AS trans_id');
-			$this->db->select('MAX(inventory.trans_items) AS trans_items');
-			$this->db->select('MAX(inventory.trans_user) AS trans_user');
-			$this->db->select('MAX(inventory.trans_date) AS trans_date');
-			$this->db->select('MAX(inventory.trans_comment) AS trans_comment');
-			$this->db->select('MAX(inventory.trans_location) AS trans_location');
-			$this->db->select('MAX(inventory.trans_inventory) AS trans_inventory');
+			//TODO:: temp fix performance issue of slow response on searching item 
+			// $this->db->select('MAX(inventory.trans_id) AS trans_id');
+			// $this->db->select('MAX(inventory.trans_items) AS trans_items');
+			// $this->db->select('MAX(inventory.trans_user) AS trans_user');
+			// $this->db->select('MAX(inventory.trans_date) AS trans_date');
+			// $this->db->select('MAX(inventory.trans_comment) AS trans_comment');
+			// $this->db->select('MAX(inventory.trans_location) AS trans_location');
+			// $this->db->select('MAX(inventory.trans_inventory) AS trans_inventory');
 
 			if($filters['stock_location_id'] > -1)
 			{
@@ -156,7 +157,8 @@ class Item extends CI_Model
 
 		$this->db->from('items AS items');
 		$this->db->join('suppliers AS suppliers', 'suppliers.person_id = items.supplier_id', 'left');
-		$this->db->join('inventory AS inventory', 'inventory.trans_items = items.item_id');
+		//TODO:: temp fix performance issue of slow response on searching item 
+		// $this->db->join('inventory AS inventory', 'inventory.trans_items = items.item_id');
 
 		if($filters['stock_location_id'] > -1)
 		{
@@ -166,7 +168,8 @@ class Item extends CI_Model
 
 		if(empty($this->config->item('date_or_time_format')))
 		{
-			$this->db->where('DATE_FORMAT(trans_date, "%Y-%m-%d") BETWEEN ' . $this->db->escape($filters['start_date']) . ' AND ' . $this->db->escape($filters['end_date']));
+			//TODO:: temp fix performance issue of slow response on searching item 
+			// $this->db->where('DATE_FORMAT(trans_date, "%Y-%m-%d") BETWEEN ' . $this->db->escape($filters['start_date']) . ' AND ' . $this->db->escape($filters['end_date']));
 		}
 		else
 		{
@@ -1051,4 +1054,3 @@ class Item extends CI_Model
 		return $item_name;
 	}
 }
-?>

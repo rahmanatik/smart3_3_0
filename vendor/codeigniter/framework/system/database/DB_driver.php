@@ -788,6 +788,9 @@ abstract class CI_DB_driver {
 			}
 		}
 
+		//TODO:: log all sql
+		log_message('info', 'Sql query: ' . $sql);
+
 		return $this->_execute($sql);
 	}
 
